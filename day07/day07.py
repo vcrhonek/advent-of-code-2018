@@ -21,7 +21,6 @@ def main(argv):
                 requires.setdefault(res.groups()[1], []).append(res.groups()[0])
                 letters.update(res.groups()[0], res.groups()[1])
 
-    
     # get sorted list of nodes from set of letters
     nodes = [x for x in letters]
     nodes.sort()
@@ -43,19 +42,19 @@ def main(argv):
     while available != []:
         order += available.pop(0)
         if not order[-1] in leads:
-            # this node is dead end, skip to next avaialbe
+            # this node is dead end, skip to next available
             continue
         # check every node we can go from current node
         for node in leads[order[-1]]:
-            # check whether are requires ale fullfiled
-            fullfiled = True
+            # check whether all requires are fulfilled
+            fulfilled = True
             for require in requires[node]:
                 if require not in order:
-                      # require not fullfiled, skip node
-                      fullfiled = False
+                      # require not fulfilled, skip node
+                      fulfilled = False
                       break
-            if fullfiled:
-                # all requires fullfiled, add node to available
+            if fulfilled:
+                # all requires fulfilled, add node to available
                 if node not in available and node not in order:
                     available.append(node)
         available.sort()
